@@ -10,20 +10,32 @@ export default function RNFormHelpers({ dictionary }) {
     getFirstInvalidInput
   };
 
-  function onInputChange({ id, value, cb = () => {} }) {
-    const { inputs } = this.state;
-    this.setState(
-      {
-        inputs: {
-          ...inputs,
-          [id]: getInputValidationState({
-            input: inputs[id],
-            value
-          })
-        }
-      },
-      cb
-    );
+  function onInputChange(inputs, setInputs, { id, value, cb = () => {} }) {
+    // const { inputs } = this.state;
+    // this.setState(
+    //   {
+    //     inputs: {
+    //       ...inputs,
+    //       [id]: getInputValidationState({
+    //         input: inputs[id],
+    //         value
+    //       })
+    //     }
+    //   },
+    //   cb
+    // );
+    var newInputs = {
+      ...inputs,
+      [id]: getInputValidationState({
+        input: inputs[id],
+        value
+      })
+    };
+    setInputs(newInputs
+      //   ,      
+      // cb
+      );
+    return newInputs;
   }
 
   function getInputValidationState({ input, value, touched }) {
@@ -54,8 +66,8 @@ export default function RNFormHelpers({ dictionary }) {
     return null;
   }
 
-  function getFormValidation() {
-    const { inputs } = this.state;
+  function getFormValidation(inputs, setInputs) {
+    // const { inputs } = this.state;
 
     const updatedInputs = {};
 
@@ -67,15 +79,16 @@ export default function RNFormHelpers({ dictionary }) {
       });
     }
 
-    this.setState({
-      inputs: updatedInputs
-    });
+    // this.setState({
+      // inputs: updatedInputs
+    // });
+    setInputs(updatedInputs);
 
     return getFirstInvalidInput({ inputs: updatedInputs });
   }
 
-  function setInputPosition({ ids, value }) {
-    const { inputs } = this.state;
+  function setInputPosition(inputs, setInputs, { ids, value }) {
+    // const { inputs } = this.state;
 
     const updatedInputs = {
       ...inputs
@@ -85,9 +98,11 @@ export default function RNFormHelpers({ dictionary }) {
       updatedInputs[id].yCoordinate = value;
     });
 
-    this.setState({
-      inputs: updatedInputs
-    });
+    setInputs(updatedInputs);
+
+    // this.setState({
+    //   inputs: updatedInputs
+    // });
   }
 
   function getFirstInvalidInput({ inputs }) {
