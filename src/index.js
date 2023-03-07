@@ -11,31 +11,14 @@ export default function RNFormHelpers({ dictionary }) {
   };
 
   function onInputChange(inputs, setInputs, { id, value, cb = () => {} }) {
-    // const { inputs } = this.state;
-    // this.setState(
-    //   {
-    //     inputs: {
-    //       ...inputs,
-    //       [id]: getInputValidationState({
-    //         input: inputs[id],
-    //         value
-    //       })
-    //     }
-    //   },
-    //   cb
-    // );
-    var newInputs = {
-      ...inputs,
-      [id]: getInputValidationState({
-        input: inputs[id],
-        value
+    setInputs((inputs) => ({
+        ...inputs,
+        [id]: getInputValidationState({
+          input: inputs[id],
+          value
+        })
       })
-    };
-    setInputs(newInputs
-      //   ,      
-      // cb
-      );
-    return newInputs;
+    );
   }
 
   function getInputValidationState({ input, value, touched }) {
