@@ -20,6 +20,10 @@ export default function RNFormHelpers({ dictionary }) {
       })
     );
   }
+  
+  function onSetInputs(changes, setInputs) {
+    setInputs((inputs) => ({ ...inputs, ...Object.fromEntries(Object.entries(changes).map(([k, v]) => ([k, { value: v }))) })    
+  }
 
   function getInputValidationState({ input, value, touched }) {
     return {
